@@ -2,11 +2,6 @@ import os
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 import codecs
-import json
-import time
-import subprocess
-from tkinter import filedialog
-from tkinter import *
 from shapely.geometry import Point
 import geopandas
 
