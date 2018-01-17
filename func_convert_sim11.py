@@ -11,7 +11,7 @@ def convert_res11(res11_lok):
     nazwa = os.path.splitext(nazwa)[0]
     if "HDAdd" not in nazwa:
         #lokalizacja progframiku mike do konwersji res11
-        read11res_lok = "\"C:\\Program Files (x86)\\DHI\\2011\\bin\\RES11READ.exe\""
+        read11res_lok = "\"C:\\Program Files (x86)\\DHI\\2012\\bin\\RES11READ.exe\""
         #stworzenie folderu do zapisu wynikow
         lok_file = os.path.dirname(res11_lok)
         if not os.path.exists(lok_file+"\\GIS"):
@@ -58,98 +58,6 @@ def convert_res11(res11_lok):
         #-allres -OutputFrequency10
         os.system(read11res_lok + " -allres -FloodWatch " + res11_lok + " " + res_lok+"/"+nazwa+"_h.csv")
 
-        """
-        #wywalenie majkowej inwokacji pliku
-        with open(res_lok+"/"+nazwa+"_h.csv", 'r') as fin:
-            data = fin.read().splitlines(True)
-
-        with open(res_lok+"/"+nazwa+"_h.csv", 'w') as fout:
-            fout.writelines(data[20:-3])
-        
-        #dodanie nagłówka pliku na sztywny zdefiniowany w line 37
-        plik = codecs.open(res_lok+"\\"+nazwa+"_h.csv", "r", encoding = 'windows-1250')
-        napis = plik.readline()
-
-        plik2 = codecs.open(res_lok+"\\"+nazwa+"_out_h.csv", "w", encoding = 'utf-8')
-        #title = [" River2 ", "Chainage2 ", "h_elev","\r\n"]
-        #plik2.writelines(title)
-
-        # usuwa powielajace sie znaki podzialu, programik z mike dzieli spacjami w roznej ilosci, tak zeby bylo czytelne dla ludzi
-        licznik_lines = 0
-        while napis != '':
-            licznik = 0
-            napis = list(napis)
-            while licznik < len(napis):
-                if napis[licznik] == " ":
-                    while napis[licznik + 1] == " ":
-                        del napis[licznik]
-                licznik += 1
-
-            napis = "".join(napis)
-            print(napis)
-            if licznik_lines < 2 :
-                napis = napis.split(" ")
-                print(napis)
-                napis[0]= "Data"
-                print(napis)
-            if licznik_lines >= 2:
-                napis = napis.split(" ")
-                data = napis[:6]
-                new_data = ""
-                for item in data:
-                    if len(item)<2:
-                        new_item = "-0"+str(item)
-                        new_data = new_data + new_item
-                    elif len(item)>1 and len(item)<3:
-                        new_data = new_data+"-"+str(item)
-                    elif len(item)>3:
-                        new_data = new_data + str(item)
-                dane = napis[6:]
-                print(new_data, dane)
-                dane.insert(0,new_data)
-                napis = dane
-            licznik_lines += 1
-
-            napis = "".join(napis)
-            plik2.writelines(napis)
-            napis = plik.readline()
-        plik.close()
-        plik2.close()
-        """
-    #------------------------------------------------------------------------------------------------------------------------
-        """
-        #stworzenie osobnych dataframe dla korytka i markerow jako lewy i prawy brzeg
-        df = pd.read_csv(res_lok+"\\"+nazwa+"_out.csv", header=0, sep=' ',index_col=0)
-        #print(df.head())
-        df_bottom = df
-        #[['X', 'Y', 'Bottom', 'River', 'Chainage', 'Type']]
-        df_bottom = df_bottom[df_bottom.Type != 2]
-        df_bottom = df_bottom.rename(columns={'Bottom': 'Z'})
-        df = pd.read_csv(res_lok+"\\"+nazwa+"_h.csv", header=0, sep=';',index_col=0)
-        #df_bottom = pd.concat([df_bottom, df], axis=1)
-        #df_bottom = df_bottom[['X', 'Y', 'Z', 'h_elev', 'River', 'Chainage', 'X_Marker_1', 'Y_Marker_1', 'X_Marker_3', 'Y_Marker_3']]
-        print(df.head())
-        #df_left = df[['X_Marker_1', 'Y_Marker_1', 'LeftBank', 'River', 'Chainage', 'Type']]
-        #df_left = df_left.rename(columns={'X_Marker_1': 'X', 'Y_Marker_1': 'Y', 'LeftBank': 'Z'})
-        #df_right = df[['X_Marker_3', 'Y_Marker_3', 'RightBank', 'River', 'Chainage', 'Type']]
-        #df_right = df_right.rename(columns={'X_Marker_3': 'X', 'Y_Marker_3': 'Y', 'RightBank': 'Z'})
-        
-
-        #zapisanie do excela 3 arkusze korytko lewy i prawy brzeg
-        writer = pd.ExcelWriter(res_lok+"\\"+nazwa+'.xlsx')
-        df_bottom.to_excel(writer,'KorytoGL')
-        #df_left.to_excel(writer,'LewyBrzeg')
-        #df_right.to_excel(writer,'PrawyBrzeg')
-        writer.save()
-        writer.close()
-
-        #agregacja datafreme do jednej tabeli
-        #frames = [df_bottom, nnn]
-        #zbiorcza = pd.concat(frames)
-        zbiorcza = df_bottom
-        #konwersja dataframe na shp
-
-        """
 
         with open(res_lok+"\\"+nazwa+"_h.csv") as f:
             lines = f.read().splitlines()
@@ -230,19 +138,6 @@ def convert_res11(res11_lok):
         zbiorcza.to_file(res_lok + "\\" + nazwa + '.shp', driver='ESRI Shapefile')
 
 
-        """
-        koryto['geometry'] = koryto.apply(lambda x: Point((float(x.X), float(x.Y))), axis=1)
-        koryto = geopandas.GeoDataFrame(koryto, geometry='geometry')
-        koryto.to_file(res_lok + "\\" + nazwa + '_koryto.shp', driver='ESRI Shapefile')
-
-        lewy['geometry'] = lewy.apply(lambda x: Point((float(x.X), float(x.Y))), axis=1)
-        lewy = geopandas.GeoDataFrame(lewy, geometry='geometry')
-        lewy.to_file(res_lok + "\\" + nazwa + '_lewy.shp', driver='ESRI Shapefile')
-
-        prawy['geometry'] = prawy.apply(lambda x: Point((float(x.X), float(x.Y))), axis=1)
-        prawy = geopandas.GeoDataFrame(prawy, geometry='geometry')
-        prawy.to_file(res_lok + "\\" + nazwa + '_prawy.shp', driver='ESRI Shapefile')
-        """
     else:
         pass
     return (0)

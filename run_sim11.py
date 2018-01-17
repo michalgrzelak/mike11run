@@ -12,11 +12,10 @@ sim11_lok = sim11_lok.replace("/", "\\")
 print(sim11_lok)
 """
 def run_sim11(sim11_lok, res11_lok):
-#sim11_lok = "E:\Warianty_W0_na_21.12\Mala_panew_W0\M11\Q1%_DOD\mpn2.sim11"
     licznik = 0; flag = 1; size1 = 0; size0 = 0
 
 
-    cmd = "\"C:\\Program Files (x86)\\DHI\\2011\\bin\\mike11.exe\""+ " -w -b \"" + sim11_lok +"\""
+    cmd = "\"C:\\Program Files (x86)\\DHI\\2012\\bin\\mike11.exe\""+ " -w -b \"" + sim11_lok +"\""
     while flag == 1 and licznik < 10:
         flag = 0
         p = Popen(cmd, shell=True)

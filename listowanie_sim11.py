@@ -51,10 +51,6 @@ def sim11_index_unite(path):
     return (sim11_L, sim11res_d, res11_L)
 
 
-#path = "E:\\Robocze\\S03_NKL"
-
-#sim11_index_unite(path)
-
 
 
 def file_index(path, rozsz):

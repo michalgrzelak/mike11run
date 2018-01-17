@@ -7,9 +7,10 @@ def run_m21(m21_lok, res_lok):
     licznik = 0; flag = 1; size1 = 0; size0 = 0
 
 
-    cmd = "\"C:\\Program Files (x86)\\DHI\\2011\\bin\\MzLaunch.exe\" \"" + m21_lok +"\""+ " -y4 -x"
+    cmd = "\"C:\\Program Files (x86)\\DHI\\2012\\bin\\MzLaunch.exe\" \"" + m21_lok +"\""+ " -y4 -x"
     print(cmd)
     p = call(cmd, shell=True)
+    #tu nie dziala sprawdzanie wielkosci pliku, trzeba czyms zastąpic (data edycji)
     """
     while flag == 1 and licznik < 10:
         flag = 0

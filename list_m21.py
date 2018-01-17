@@ -21,7 +21,7 @@ def m21_index_unite(path):
                     lines = f.readlines()
                     index = lines.index("         [OUTPUT_AREA_1]\n")
                     sciezka = element.split("\\")
-                    #print((sciezka))
+
                     try:
                         hd_res = lines[index + 11].split("|")[1]
                         hd_res = hd_res.split("\\")
@@ -32,25 +32,19 @@ def m21_index_unite(path):
                     except:
                         hd_res = lines[index + 11].split("'")[1]
                         sciezka = sciezka[:-1]
-                        #print(sciezka)
-                        hd_res = [hd_res]
-                        #print(hd_res)
-                        sciezka = sciezka+hd_res
-                        #print(sciezka)
 
-                    #sciezka = sciezka + hd_res
+                        hd_res = [hd_res]
+
+                        sciezka = sciezka+hd_res
+
                     hd_res = "\\".join(sciezka)
                     m21res_d[element] = hd_res
                     res_dfs.append(hd_res)
-                    #print(m21res_d)
 
-    #print(m21_L)
     return (m21_L, m21res_d, res_dfs)
 
 
-#path = "E:\\Robocze\\S03_NKL"
 
-#sim11_index_unite(path)
 
 
 
