@@ -1,0 +1,54 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+.cache
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+tests/*_tests.log
+tests/tests_*.log
+tests/tpa_*.log
+tests/cli_*.log
+tests/cl/integration/testdata/*/customer/
+tests/cli_integration/workspace/*
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+htmlcov
+.idea
+localanalyzer
+localanalyzer.exe
+localanalyzer.spec
+localanalyzer_debug
+localanalyzer_debug.exe
+localanalyzer_debug.spec
+
+.credentials_store

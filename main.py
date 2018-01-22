@@ -1,19 +1,17 @@
-import os
-from tkinter import filedialog
-from tkinter import *
-import tkinter.simpledialog
-from listowanie_sim11 import sim11_index_unite, file_index
-from run_sim11 import run_sim11
 from time import sleep
+from tkinter import *
+from tkinter import filedialog
+
 from func_convert_sim11 import convert_res11
+from listowanie_sim11 import sim11_index_unite
 
 root = Tk()
 root.filename = filedialog.askdirectory(initialdir="/", title="Wybierz folder do przeszukiwania (sim11)")
 main_lok = root.filename
 
-#main_lok = "E:\\Robocze\\model_testowy"
-#root.filename = filedialog.askdirectory(initialdir="/", title="Wybierz folder do zapisu raportów")
-#folder = root.filename
+# main_lok = "E:\\Robocze\\model_testowy"
+# root.filename = filedialog.askdirectory(initialdir="/", title="Wybierz folder do zapisu raportów")
+# folder = root.filename
 
 sim11_L, sim11res_d, res11_L = sim11_index_unite(main_lok)
 
@@ -21,7 +19,7 @@ for model in sim11_L:
     print("Model:")
     print(model)
     res11_lok = sim11res_d[model]
-    #run_sim11(model, res11_lok)
+    # run_sim11(model, res11_lok)
 
     print("Wynik:")
     print(res11_lok)
